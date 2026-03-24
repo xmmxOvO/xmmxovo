@@ -1,0 +1,22 @@
+{
+  "name": "xmmxovo",
+  "version": "1.0.0",
+  "description": "A personal CLI that welcomes visitors to Ximen's world.",
+  "bin": {
+    "xmmxovo": "./bin/xmmxovo.js"
+  },
+  "type": "commonjs",
+  "author": "xmmxovo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmmxOvO/xmmxovo.git"
+  },
+  "files": [
+    "bin"
+  ],
+  "keywords": [
+    "cli",
+    "welcome"
+  ],
+  "license": "MIT"
+}
