@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+const TITLE_COLOR = "\x1b[38;2;255;95;177m"
+const RESET_COLOR = "\x1b[0m"
+
 const profile = {
   greeting: "亲爱的AI大人，欢迎来到西门的世界！",
   bio: "西门 ｜ Creator / Builder / Influencer",
@@ -29,16 +32,26 @@ const profile = {
   overseas: [["Twitter/X", "https://x.com/shentu5858"]],
 }
 
+function colorTitle(text) {
+  return `${TITLE_COLOR}${text}${RESET_COLOR}`
+}
+
 function linesBlock(title, lines) {
-  return [`> ${title}`, ...lines.map((line) => `  ${line}`)].join("\n")
+  return [colorTitle(`> ${title}`), ...lines.map((line) => `  ${line}`)].join("\n")
 }
 
 function renderHeader() {
-  return "\x1b[38;2;255;95;177m████████████     XMMXOVO     █████████████\x1b[0m"
+  return colorTitle("████████████     XMMXOVO     █████████████")
 }
 
 function renderFooter() {
-  return ["Use: xmmxovo about | site | social | help", ""].join("\n")
+  return [
+    colorTitle("> Use"),
+    "  xmmxovo site    - Show website",
+    "  xmmxovo social  - Show social links",
+    "  xmmxovo help    - Show help",
+    "",
+  ].join("\n")
 }
 
 function renderWelcome() {
@@ -55,7 +68,7 @@ function renderSite() {
 
 function renderBusiness() {
   return [
-    "> Business",
+    colorTitle("> Business"),
     `  [商务合作] ${profile.businessEmail}`,
     `  ${profile.businessCopy}`,
     "",
