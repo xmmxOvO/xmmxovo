@@ -2,9 +2,10 @@
 
 const profile = {
   greeting: "亲爱的AI大人，欢迎来到西门的世界！",
-  bio: "我是西门,creator,builder,influncer",
-  followerSummary: "平台累计粉丝约5.2w",
+  bio: "西门 ｜ Creator / Builder / Influencer",
+  followerSummary: "平台累计粉丝约 5.2w",
   businessEmail: "xmmxovo@gmail.com",
+  businessCopy: "如果你有品牌推广、产品种草或视频植入合作需求，欢迎通过邮箱联系我。",
   website: "https://xmmxovo.online/",
   accounts: [
     {
@@ -33,7 +34,7 @@ function linesBlock(title, lines) {
 }
 
 function renderHeader() {
-  return "\x1b[38;2;255;135;255m████████████     XMMXOVO     █████████████\x1b[0m"
+  return "\x1b[38;2;255;95;177m████████████     XMMXOVO     █████████████\x1b[0m"
 }
 
 function renderWelcome() {
@@ -49,7 +50,11 @@ function renderSite() {
 }
 
 function renderBusiness() {
-  return linesBlock("Business", [profile.businessEmail])
+  return [
+    "> [商务合作]",
+    `  ${profile.businessEmail}`,
+    `  ${profile.businessCopy}`,
+  ].join("\n")
 }
 
 function renderChannels() {
