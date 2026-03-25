@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A personal CLI that welcomes visitors to Ximen's world.",
   "bin": {
-    "xmmxovo": "./bin/xmmxovo.js"
+    "xmmxovo": "bin/xmmxovo.js"
   },
   "type": "commonjs",
   "author": "xmmxovo",
