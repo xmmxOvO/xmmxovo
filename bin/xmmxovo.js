@@ -2,12 +2,14 @@
 
 const profile = {
   greeting: "亲爱的AI大人，欢迎来到西门的世界！",
-  bio: "我是 xmmxovo，一位持续分享内容与灵感的创作者。",
-  followerSummary: "已知平台累计粉丝约 5.2 万。",
+  bio: "我是西门,creator,builder,influncer",
+  followerSummary: "平台累计粉丝约5.2w",
+  businessEmail: "xmmxovo@gmail.com",
   website: "https://xmmxovo.online/",
   accounts: [
     {
       name: "西门美月匈XD",
+      summary: "B站 / 小红书 / 抖音",
       links: [
         ["B站", "https://b23.tv/JZSD8Ni"],
         ["小红书", "https://xhslink.com/m/3vKVh2E7rov"],
@@ -16,6 +18,7 @@ const profile = {
     },
     {
       name: "西门聪明蛋XD",
+      summary: "抖音 / 小红书",
       links: [
         ["抖音", "https://v.douyin.com/nEaQzcArsnQ/"],
         ["小红书", "https://xhslink.com/m/1clbXZNOTW2"],
@@ -25,50 +28,76 @@ const profile = {
   overseas: [["Twitter/X", "https://x.com/shentu5858"]],
 }
 
-function formatLinks(links) {
-  return links.map(([label, url]) => `${label}: ${url}`).join("\n")
+function linesBlock(title, lines) {
+  return [`> ${title}`, ...lines.map((line) => `  ${line}`)].join("\n")
 }
 
-function renderAbout() {
-  return [
-    profile.greeting,
-    "",
-    profile.bio,
-    profile.followerSummary,
-    `个人网站: ${profile.website}`,
-    "海外账号:",
-    formatLinks(profile.overseas),
-  ].join("\n")
+function renderHeader() {
+  return "\x1b[38;2;255;135;255m████████████     XMMXOVO     █████████████\x1b[0m"
+}
+
+function renderWelcome() {
+  return linesBlock("Welcome", [profile.greeting])
+}
+
+function renderProfile() {
+  return linesBlock("Profile", [profile.bio, profile.followerSummary])
 }
 
 function renderSite() {
-  return ["个人网站", profile.website].join("\n")
+  return linesBlock("Site", [profile.website])
 }
 
-function renderSocial() {
-  const accountSections = profile.accounts.map(({ name, links }) =>
-    [name, formatLinks(links)].join("\n")
+function renderBusiness() {
+  return linesBlock("Business", [profile.businessEmail])
+}
+
+function renderChannels() {
+  const accountLines = profile.accounts.map(
+    ({ name, summary }) => `[${name}]  ${summary}`
+  )
+  const overseasLines = profile.overseas.map(
+    ([label, url]) => `[${label}]      ${url}`
   )
 
+  return linesBlock("Channels", [...accountLines, ...overseasLines])
+}
+
+function renderSocialDetails() {
+  const accountSections = profile.accounts.flatMap(({ name, links }) => [
+    name,
+    ...links.map(([label, url]) => `  • ${label}  ${url}`),
+    "",
+  ])
+
   return [
-    "社交媒体账号",
-    profile.followerSummary,
+    renderHeader(),
+    "",
+    linesBlock("社交媒体账号", [profile.followerSummary]),
+    "",
     ...accountSections,
     "海外账号",
-    formatLinks(profile.overseas),
-  ].join("\n\n")
+    ...profile.overseas.map(([label, url]) => `  • ${label}  ${url}`),
+  ].join("\n")
+}
+
+function renderAbout() {
+  return [renderHeader(), "", renderWelcome(), "", renderProfile()].join("\n")
 }
 
 function renderDefault() {
   return [
-    profile.greeting,
+    renderHeader(),
     "",
-    profile.bio,
-    profile.followerSummary,
+    renderWelcome(),
+    "",
+    renderProfile(),
     "",
     renderSite(),
     "",
-    renderSocial(),
+    renderChannels(),
+    "",
+    renderBusiness(),
   ].join("\n")
 }
 
@@ -76,8 +105,8 @@ const command = process.argv[2]
 
 const commands = {
   about: renderAbout,
-  site: renderSite,
-  social: renderSocial,
+  site: () => [renderHeader(), "", renderSite()].join("\n"),
+  social: renderSocialDetails,
 }
 
 const output = commands[command] ? commands[command]() : renderDefault()
