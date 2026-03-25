@@ -37,6 +37,10 @@ function renderHeader() {
   return "\x1b[38;2;255;95;177m████████████     XMMXOVO     █████████████\x1b[0m"
 }
 
+function renderFooter() {
+  return ["Use: xmmxovo about | site | social | help", ""].join("\n")
+}
+
 function renderWelcome() {
   return linesBlock("Welcome", [profile.greeting])
 }
@@ -51,9 +55,10 @@ function renderSite() {
 
 function renderBusiness() {
   return [
-    "> [商务合作]",
-    `  ${profile.businessEmail}`,
+    "> Business",
+    `  [商务合作] ${profile.businessEmail}`,
     `  ${profile.businessCopy}`,
+    "",
   ].join("\n")
 }
 
@@ -62,7 +67,7 @@ function renderChannels() {
     ({ name, summary }) => `[${name}]  ${summary}`
   )
   const overseasLines = profile.overseas.map(
-    ([label, url]) => `[${label}]      ${url}`
+    ([label, url]) => `[${label}]     ${url}`
   )
 
   return linesBlock("Channels", [...accountLines, ...overseasLines])
@@ -83,11 +88,34 @@ function renderSocialDetails() {
     ...accountSections,
     "海外账号",
     ...profile.overseas.map(([label, url]) => `  • ${label}  ${url}`),
+    "",
+    renderFooter(),
   ].join("\n")
 }
 
 function renderAbout() {
-  return [renderHeader(), "", renderWelcome(), "", renderProfile()].join("\n")
+  return [
+    renderHeader(),
+    "",
+    renderWelcome(),
+    "",
+    renderProfile(),
+    "",
+    renderFooter(),
+  ].join("\n")
+}
+
+function renderHelp() {
+  return [
+    renderHeader(),
+    "",
+    "Available commands:",
+    "  xmmxovo           Show dashboard",
+    "  xmmxovo about     Show profile",
+    "  xmmxovo site      Show website",
+    "  xmmxovo social    Show social links",
+    "  xmmxovo help      Show help",
+  ].join("\n")
 }
 
 function renderDefault() {
@@ -103,6 +131,7 @@ function renderDefault() {
     renderChannels(),
     "",
     renderBusiness(),
+    renderFooter(),
   ].join("\n")
 }
 
@@ -110,8 +139,11 @@ const command = process.argv[2]
 
 const commands = {
   about: renderAbout,
-  site: () => [renderHeader(), "", renderSite()].join("\n"),
+  help: renderHelp,
+  site: () => [renderHeader(), "", renderSite(), "", renderFooter()].join("\n"),
   social: renderSocialDetails,
+  "--help": renderHelp,
+  "-h": renderHelp,
 }
 
 const output = commands[command] ? commands[command]() : renderDefault()
