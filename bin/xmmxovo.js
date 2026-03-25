@@ -2,6 +2,8 @@
 
 const profile = {
   greeting: "亲爱的AI大人，欢迎来到西门的世界！",
+  bio: "我是 xmmxovo，一位持续分享内容与灵感的创作者。",
+  followerSummary: "已知平台累计粉丝约 5.2 万。",
   website: "https://xmmxovo.online/",
   accounts: [
     {
@@ -31,7 +33,8 @@ function renderAbout() {
   return [
     profile.greeting,
     "",
-    "我是 xmmxovo，也是两个万粉账号的博主。",
+    profile.bio,
+    profile.followerSummary,
     `个人网站: ${profile.website}`,
     "海外账号:",
     formatLinks(profile.overseas),
@@ -48,7 +51,8 @@ function renderSocial() {
   )
 
   return [
-    "社交账号",
+    "社交媒体账号",
+    profile.followerSummary,
     ...accountSections,
     "海外账号",
     formatLinks(profile.overseas),
@@ -56,7 +60,16 @@ function renderSocial() {
 }
 
 function renderDefault() {
-  return [profile.greeting, "", renderSite(), "", renderSocial()].join("\n")
+  return [
+    profile.greeting,
+    "",
+    profile.bio,
+    profile.followerSummary,
+    "",
+    renderSite(),
+    "",
+    renderSocial(),
+  ].join("\n")
 }
 
 const command = process.argv[2]
