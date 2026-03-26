@@ -1,6 +1,6 @@
 {
   "name": "xmmxovo",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A personal CLI that shares xmmxovo's welcome message, website, and social links.",
   "bin": {
     "xmmxovo": "bin/xmmxovo.js"
@@ -10,6 +10,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xmmxOvO/xmmxovo-cli.git"
+  },
+  "homepage": "https://github.com/xmmxOvO/xmmxovo-cli#readme",
+  "bugs": {
+    "url": "https://github.com/xmmxOvO/xmmxovo-cli/issues"
   },
   "files": [
     "bin"
