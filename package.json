@@ -9,7 +9,7 @@
   "author": "xmmxovo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xmmxOvO/xmmxovo.git"
+    "url": "git+https://github.com/xmmxOvO/xmmxovo-cli.git"
   },
   "files": [
     "bin"
